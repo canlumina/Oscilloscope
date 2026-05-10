@@ -1,0 +1,64 @@
+# Keil IDE files
+*.uvprojx.user
+*.uvguix.*
+*.uvoptx
+*.uvoptx.bak
+*.crf
+*.d
+*.dep
+*.o
+*.axf
+*.htm
+*.sct
+*.lnp
+*.lst
+*.map
+*.build_log.htm
+
+# Build output directories
+Project/DebugConfig/
+Project/Listings/
+Project/Objects/
+Project/RTE/
+
+# VSCode settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Binary files
+*.bin
+*.hex
+*.elf
+
+# Debug files
+*.stackdump
+*.su
+*.log
+
+# Dependency files
+*.d
+
+# Keil temporary files
+*.bak
+*.tmp
+*.scvd
+
+# FreeRTOS compiled files
+Middlewares/FreeRTOS/kernel/*.o
+Middlewares/FreeRTOS/portable/*.o
+Middlewares/FreeRTOS/userTask/*.o
+
+# LVGL compiled files
+Middlewares/LVGL/lvgl/src/**/*.o
+Middlewares/LVGL/lvgl_app/**/*.o
+
+# Object files from compilation
+Drivers/Src/*.o
+STM32F1xx_HAL_Driver/Src/*.o
+
+# Documentation files (often generated)
+Middlewares/ff15/documents/**/*.pdf
+Middlewares/ff15/documents/**/*.html

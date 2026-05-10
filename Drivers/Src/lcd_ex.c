@@ -1,0 +1,84 @@
+#include "delay.h"
+#include "lcd.h"
+
+
+void lcd_ex_ili9325_reginit(void)
+{
+		lcd_write_reg(0x00E5,0x78F0); 
+		lcd_write_reg(0x0001,0x0100); 
+		lcd_write_reg(0x0002,0x0700); 
+		lcd_write_reg(0x0003,0x1030); 
+		lcd_write_reg(0x0004,0x0000); 
+		lcd_write_reg(0x0008,0x0202);  
+		lcd_write_reg(0x0009,0x0000);
+		lcd_write_reg(0x000A,0x0000); 
+		lcd_write_reg(0x000C,0x0000); 
+		lcd_write_reg(0x000D,0x0000);
+		lcd_write_reg(0x000F,0x0000);
+		//power on sequence VGHVGL
+		lcd_write_reg(0x0010,0x0000);   
+		lcd_write_reg(0x0011,0x0007);  
+		lcd_write_reg(0x0012,0x0000);  
+		lcd_write_reg(0x0013,0x0000); 
+		lcd_write_reg(0x0007,0x0000); 
+		//vgh 
+		lcd_write_reg(0x0010,0x1690);   
+		lcd_write_reg(0x0011,0x0227);
+		//delayms(100);
+		//vregiout 
+		lcd_write_reg(0x0012,0x009D); //0x001b
+		//delayms(100); 
+		//vom amplitude
+		lcd_write_reg(0x0013,0x1900);
+		//delayms(100); 
+		//vom H
+		lcd_write_reg(0x0029,0x0025); 
+		lcd_write_reg(0x002B,0x000D); 
+		//gamma
+		lcd_write_reg(0x0030,0x0007);
+		lcd_write_reg(0x0031,0x0303);
+		lcd_write_reg(0x0032,0x0003);// 0006
+		lcd_write_reg(0x0035,0x0206);
+		lcd_write_reg(0x0036,0x0008);
+		lcd_write_reg(0x0037,0x0406); 
+		lcd_write_reg(0x0038,0x0304);//0200
+		lcd_write_reg(0x0039,0x0007); 
+		lcd_write_reg(0x003C,0x0602);// 0504
+		lcd_write_reg(0x003D,0x0008); 
+		//ram
+		lcd_write_reg(0x0050,0x0000); 
+		lcd_write_reg(0x0051,0x00EF);
+		lcd_write_reg(0x0052,0x0000); 
+		lcd_write_reg(0x0053,0x013F);  
+		lcd_write_reg(0x0060,0xA700); 
+		lcd_write_reg(0x0061,0x0001); 
+		lcd_write_reg(0x006A,0x0000); 
+		//
+		lcd_write_reg(0x0080,0x0000); 
+		lcd_write_reg(0x0081,0x0000); 
+		lcd_write_reg(0x0082,0x0000); 
+		lcd_write_reg(0x0083,0x0000); 
+		lcd_write_reg(0x0084,0x0000); 
+		lcd_write_reg(0x0085,0x0000); 
+		//
+		lcd_write_reg(0x0090,0x0010); 
+		lcd_write_reg(0x0092,0x0600); 
+		
+		lcd_write_reg(0x0007,0x0133);
+		lcd_write_reg(0x00,0x0022);//
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
