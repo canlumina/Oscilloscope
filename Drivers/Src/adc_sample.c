@@ -129,6 +129,12 @@ void ADC_Sample_Init(void)
     HAL_ADCEx_Calibration_Start(&hadc1);
     HAL_ADCEx_Calibration_Start(&hadc2);
 
+    /* F1 HAL 已知坑：HAL_ADC_Init 不写 CR2.EXTTRIG（自注释说放在 Start_xxx 里写），
+     * 但 HAL_ADCEx_MultiModeStart_DMA 只为 master(ADC1) 写 EXTTRIG，不写 slave(ADC2)。
+     * 结果 dual REGSIMULT 下 slave 的硬件触发通路未使能，DR 高 16 位永远是 0。
+     * 此处手动补一刀。参考 RM0008 §11.12.3 ADC_CR2.EXTTRIG */
+    SET_BIT(hadc2.Instance->CR2, ADC_CR2_EXTTRIG);
+
     /* ---- TIM3: 1MHz 计数，TRGO=Update（同时触发两个 ADC） ---- */
     htim3.Instance               = TIM3;
     htim3.Init.Prescaler         = 71;                          /* 72MHz/72 = 1MHz */
@@ -161,10 +167,19 @@ uint8_t ADC_Sample_GetTimebaseIdx(void)
 
 /* ============================================================
  * 启动一次采样：双重模式 DMA + TIM3 触发
+ *
+ * F1 HAL 已知坑：HAL_ADCEx_MultiModeStop_DMA 内部会
+ *   CLEAR_BIT(ADC1->CR1, ADC_CR1_DUALMOD)
+ * 把双重模式位清零，下次启动会退化为独立模式（ADC1.DR 高 16 位永远 0）。
+ * 复位后第一次采样工作正常，回调里 stop 后 DUALMOD 被清，第 2 次起 CH2 失效。
+ * 修法：每次启动前手动写回 REGSIMULT。此刻两个 ADC 都 disabled，写位合法。
+ * 参考 RM0008 §11.12.2 ADC_CR1.DUALMOD
  * ============================================================ */
 void ADC_Sample_Start(void)
 {
     g_sample_done = 0;
+
+    MODIFY_REG(hadc1.Instance->CR1, ADC_CR1_DUALMOD, ADC_DUALMODE_REGSIMULT);
 
     HAL_ADCEx_MultiModeStart_DMA(&hadc1, g_adc_buf, SAMPLE_BUF_SIZE);
     __HAL_TIM_SET_COUNTER(&htim3, 0);
