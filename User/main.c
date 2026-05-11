@@ -35,21 +35,23 @@ static uint32_t s_disp_buf[SAMPLE_BUF_SIZE];   /* CH1+CH2 打包样本 */
 static void Handle_Key(uint8_t key)
 {
     switch (key) {
-    case KEY0_PRES: /* 时基切换 */
+    case KEY0_PRES: /* 时基切换：新的时间尺度，旧波形无意义，清屏 */
         g_osc.timebase_idx++;
         if (g_osc.timebase_idx >= TIMEBASE_COUNT)
             g_osc.timebase_idx = 0;
         ADC_Sample_SetTimebase(g_osc.timebase_idx);
+        Osc_ClearWaveArea();
         Osc_UpdateStatusBar();
+        Osc_DrawTrigLine();
         break;
 
-    case KEY1_PRES: /* 量程切换：触发线位置和波形映射都会变 */
+    case KEY1_PRES: /* 量程切换：Y 坐标映射变化，旧波形无意义，清屏 */
         g_osc.vscale_idx++;
         if (g_osc.vscale_idx >= VSCALE_COUNT)
             g_osc.vscale_idx = 0;
-        Osc_InvalidateWave();   /* 缓存的 prev_ys 已不可用 */
+        Osc_ClearWaveArea();
         Osc_UpdateStatusBar();
-        Osc_DrawTrigLine();     /* 量程变了 → 触发线 y 变了 */
+        Osc_DrawTrigLine();         /* 量程变了 → 触发线 y 变了 */
         break;
 
     case KEY2_PRES: /* Run / Stop */
