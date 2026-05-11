@@ -29,7 +29,7 @@
 #define SAMPLE_BUF_SIZE         240
 
 /* 时基档位数量 */
-#define TIMEBASE_COUNT          9
+#define TIMEBASE_COUNT          12
 
 /* 采样完成标志 */
 extern volatile uint8_t  g_sample_done;

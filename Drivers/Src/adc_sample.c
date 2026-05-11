@@ -1,17 +1,35 @@
 #include "adc_sample.h"
 
 /* ============================================================
- * 时基档位表（含义同前；TIM3 PSC=71 → 1MHz 计数）
- * 双重模式下两个 ADC 并行采样，每点 ADC1+ADC2 同时刻取值。
+ * 时基档位表（PSC=71 → TIM3 计数 1MHz，每 tick=1µs）
+ * 双重模式下两 ADC 并行采样，每点 ADC1+ADC2 同时刻取值。
+ *
+ * idx 每像素   每格    TIM3 ARR  备注
+ *  0  2µs     48µs    1         接近 F103 ADC 极限（~1.17µs/转换）
+ *  1  4µs     96µs    3
+ *  2  8µs     192µs   7
+ *  3  21µs    504µs   20        默认（适合 PWM 观察）
+ *  4  42µs    1ms     41
+ *  5  84µs    2ms     83
+ *  6  209µs   5ms     208
+ *  7  417µs   10ms    416
+ *  8  834µs   20ms    833
+ *  9  2.08ms  50ms    2083
+ * 10  4.17ms  100ms   4166
+ * 11  8.33ms  200ms   8333
+ *
+ * 0 号档 ARR=1 时 sample 间隔=2µs，刚好高于 ADCCLK=12MHz 下 12bit
+ * 单次转换最低 14 cycles ≈ 1.17µs，可用但留余量小。
  * ============================================================ */
 static const uint16_t s_tim_arr[TIMEBASE_COUNT] = {
-    21, 42, 83, 208, 416, 833, 2083, 4166, 8333,
+    1, 3, 7, 20, 41, 83, 208, 416, 833, 2083, 4166, 8333,
 };
 
 const char * const g_timebase_str[TIMEBASE_COUNT] = {
+    "50us/d ", "100us/d", "200us/d",
     "500us/d", "1ms/div", "2ms/div",
-    " 5ms/div", "10ms/div", "20ms/div",
-    "50ms/div", "100ms/d", "200ms/d",
+    "5ms/div", "10ms/d ", "20ms/d ",
+    "50ms/d ", "100ms/d", "200ms/d",
 };
 
 volatile uint8_t g_sample_done = 0;
