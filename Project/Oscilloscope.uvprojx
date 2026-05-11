@@ -525,31 +525,6 @@
               <FilePath>..\Drivers\Src\touch.c</FilePath>
             </File>
             <File>
-              <FileName>24cxx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Src\24cxx.c</FilePath>
-            </File>
-            <File>
-              <FileName>iic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Src\iic.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Src\led.c</FilePath>
-            </File>
-            <File>
-              <FileName>spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Src\spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>spisd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Src\spisd.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Src\timer.c</FilePath>
@@ -563,6 +538,16 @@
               <FileName>oscilloscope.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Src\oscilloscope.c</FilePath>
+            </File>
+            <File>
+              <FileName>24cxx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\24cxx.c</FilePath>
+            </File>
+            <File>
+              <FileName>iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Src\iic.c</FilePath>
             </File>
           </Files>
         </Group>
