@@ -8,9 +8,6 @@
 #include "touch.h"
 #include "lcd.h"
 #include "button.h"
-#include "led.h"
-#include "spi.h"
-#include "spi_sd.h"
 #include "timer.h"
 
 #endif
