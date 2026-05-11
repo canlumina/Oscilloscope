@@ -24,6 +24,9 @@ Project/RTE/
 # VSCode settings
 .vscode/
 
+# Claude Code 本地设置（仅本地保留）
+.claude/
+
 # System files
 .DS_Store
 Thumbs.db
